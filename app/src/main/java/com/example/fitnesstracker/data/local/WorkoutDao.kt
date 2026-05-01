@@ -10,18 +10,21 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface WorkoutDao {
-    @Query("SELECT * FROM workouts ORDER BY id DESC")
-    fun getAllWorkouts(): Flow<List<Workout>>
+    @Query("SELECT * FROM workouts ORDER BY dateMillis DESC")
+    fun getAllWorkouts(): Flow<List<WorkoutEntity>>
 
-    @Query("SELECT * FROM workouts WHERE id = :id")
-    suspend fun getWorkoutById(id: Int): Workout?
+    @Query("SELECT * FROM workouts WHERE id = :id LIMIT 1")
+    suspend fun getWorkoutById(id: Int): WorkoutEntity?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertWorkout(workout: Workout)
+    suspend fun insertWorkout(workout: WorkoutEntity)
 
     @Update
-    suspend fun updateWorkout(workout: Workout)
+    suspend fun updateWorkout(workout: WorkoutEntity)
 
     @Delete
-    suspend fun deleteWorkout(workout: Workout)
+    suspend fun deleteWorkout(workout: WorkoutEntity)
+
+    @Query("DELETE FROM workouts")
+    suspend fun deleteAllWorkouts()
 }

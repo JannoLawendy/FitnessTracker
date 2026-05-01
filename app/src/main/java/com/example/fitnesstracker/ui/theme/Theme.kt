@@ -5,17 +5,19 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
-private val FitnessColors = lightColorScheme(
-    primary = Color(0xFF006D5B),
-    secondary = Color(0xFF4E635E),
-    background = Color(0xFFF5FBF8),
+private val LightColors = lightColorScheme(
+    primary = Color(0xFF2E7D32),
+    secondary = Color(0xFF1565C0),
+    tertiary = Color(0xFFFF8F00),
+    background = Color(0xFFF7F8FA),
     surface = Color.White
 )
 
 @Composable
 fun FitnessTrackerTheme(content: @Composable () -> Unit) {
     MaterialTheme(
-        colorScheme = FitnessColors,
+        colorScheme = LightColors,
+        typography = MaterialTheme.typography,
         content = content
     )
 }
