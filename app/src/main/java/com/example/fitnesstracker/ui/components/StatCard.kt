@@ -12,6 +12,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 
+// Reusable card used on the home and progress screens.
+// It shows one statistic, for example total workouts or calories.
 @Composable
 fun StatCard(title: String, value: String, modifier: Modifier = Modifier) {
     Card(

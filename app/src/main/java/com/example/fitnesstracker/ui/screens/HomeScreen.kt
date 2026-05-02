@@ -23,6 +23,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.fitnesstracker.ui.components.StatCard
 
+// Home screen/dashboard of the app.
+// It shows quick totals and buttons to navigate to other screens.
 @Composable
 fun HomeScreen(
     totalWorkouts: Int,
@@ -48,6 +50,7 @@ fun HomeScreen(
             style = MaterialTheme.typography.bodyLarge
         )
 
+        // These cards show live totals from the ViewModel.
         Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
             StatCard(title = "Workouts", value = totalWorkouts.toString(), modifier = Modifier.weight(1f))
             StatCard(title = "Minutes", value = totalMinutes.toString(), modifier = Modifier.weight(1f))
@@ -56,6 +59,7 @@ fun HomeScreen(
 
         Spacer(modifier = Modifier.height(8.dp))
 
+        // Buttons call lambdas from MainActivity, so this screen stays reusable.
         Button(onClick = onAddClick, modifier = Modifier.fillMaxWidth()) {
             Icon(Icons.Default.Add, contentDescription = null)
             Text(text = " Add Workout")

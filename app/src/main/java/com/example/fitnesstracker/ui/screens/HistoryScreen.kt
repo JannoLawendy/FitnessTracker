@@ -28,6 +28,8 @@ import androidx.compose.ui.unit.dp
 import com.example.fitnesstracker.data.local.WorkoutEntity
 import com.example.fitnesstracker.ui.components.WorkoutCard
 
+// History screen displays all saved workouts.
+// It uses LazyColumn, which is the Compose list component required for list-based UI.
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HistoryScreen(
@@ -36,6 +38,8 @@ fun HistoryScreen(
     onEditClick: (Int) -> Unit,
     onDeleteClick: (WorkoutEntity) -> Unit
 ) {
+
+    // Holds the workout selected for deletion so the confirmation dialog knows what to delete.
     var workoutToDelete by remember { mutableStateOf<WorkoutEntity?>(null) }
 
     Scaffold(
@@ -77,7 +81,7 @@ fun HistoryScreen(
             }
         }
     }
-
+    // Confirmation dialog prevents the user from deleting by mistake.
     if (workoutToDelete != null) {
         AlertDialog(
             onDismissRequest = { workoutToDelete = null },

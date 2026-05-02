@@ -24,6 +24,9 @@ import com.example.fitnesstracker.ui.viewmodel.WorkoutViewModel
 import com.example.fitnesstracker.ui.viewmodel.WorkoutViewModelFactory
 
 class MainActivity : ComponentActivity() {
+
+    // This creates the ViewModel and gives it access to the Room database through the repository.
+    // I used a factory because the ViewModel needs a constructor parameter.
     private val viewModel: WorkoutViewModel by viewModels {
         val database = WorkoutDatabase.getDatabase(applicationContext)
         WorkoutViewModelFactory(WorkoutRepository(database.workoutDao()))
@@ -34,10 +37,13 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
 
         setContent {
+            // FitnessTrackerTheme keeps the colors and Material design consistent in the whole app.
             FitnessTrackerTheme {
                 val navController = rememberNavController()
+                // collectAsState listens to the ViewModel state and updates the UI automatically.
                 val uiState by viewModel.uiState.collectAsState()
 
+                // NavHost controls which screen is currently shown.
                 NavHost(
                     navController = navController,
                     startDestination = Screen.Home.route
@@ -52,6 +58,7 @@ class MainActivity : ComponentActivity() {
                             onProgressClick = { navController.navigate(Screen.Progress.route) }
                         )
                     }
+                    // Screen used to create a new workout. workoutId is null because it is not editing.
                     composable(Screen.AddWorkout.route) {
                         AddEditWorkoutScreen(
                             workoutId = null,
@@ -75,6 +82,7 @@ class MainActivity : ComponentActivity() {
                             onBackClick = { navController.popBackStack() }
                         )
                     }
+                    // Edit screen receives the workout id from the route, for example edit_workout/3.
                     composable(
                         route = Screen.EditWorkout.route,
                         arguments = listOf(navArgument("workoutId") { type = NavType.IntType })

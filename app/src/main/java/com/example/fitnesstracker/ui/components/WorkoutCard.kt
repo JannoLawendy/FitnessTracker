@@ -23,6 +23,9 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
+
+// Reusable card used in the History screen to display one workout.
+// It also has edit and delete buttons for CRUD operations
 @Composable
 fun WorkoutCard(
     workout: WorkoutEntity,

@@ -28,6 +28,10 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.example.fitnesstracker.ui.viewmodel.WorkoutViewModel
 
+
+
+// This screen is used for both adding and editing a workout.
+// If workoutId is null, it adds a new workout. If workoutId has a value, it edits that workout.
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddEditWorkoutScreen(
@@ -35,12 +39,14 @@ fun AddEditWorkoutScreen(
     viewModel: WorkoutViewModel,
     onBackClick: () -> Unit
 ) {
+    // remember keeps the typed values on the screen while Compose recomposes the UI.
     var type by remember { mutableStateOf("") }
     var duration by remember { mutableStateOf("") }
     var calories by remember { mutableStateOf("") }
     var notes by remember { mutableStateOf("") }
     var errorMessage by remember { mutableStateOf<String?>(null) }
 
+    // When editing, this loads the selected workout and fills the form fields.
     LaunchedEffect(workoutId) {
         if (workoutId != null) {
             val workout = viewModel.getWorkoutById(workoutId)
@@ -103,7 +109,7 @@ fun AddEditWorkoutScreen(
                 modifier = Modifier.fillMaxWidth(),
                 minLines = 3
             )
-
+            // When editing, this loads the selected workout and fills the form fields.
             if (errorMessage != null) {
                 Text(text = errorMessage ?: "", color = MaterialTheme.colorScheme.error)
             }

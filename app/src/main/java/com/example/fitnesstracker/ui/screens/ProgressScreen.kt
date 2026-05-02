@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.fitnesstracker.ui.components.StatCard
 
+// Progress screen shows calculated statistics from all saved workouts.
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProgressScreen(
@@ -25,6 +26,7 @@ fun ProgressScreen(
     totalCalories: Int,
     onBackClick: () -> Unit
 ) {
+    // Avoids division by zero when there are no workouts yet.
     val averageMinutes = if (totalWorkouts == 0) 0 else totalMinutes / totalWorkouts
 
     Scaffold(
