@@ -1,3 +1,6 @@
+
+
+
 package com.example.fitnesstracker.data.local
 
 import android.content.Context
@@ -5,24 +8,29 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [WorkoutEntity::class], version = 1, exportSchema = false)
+// Main database for the app (stores workouts)
+@Database(entities = [WorkoutEntity::class], version = 1)
 abstract class WorkoutDatabase : RoomDatabase() {
+
+    // gives access to DAO functions (insert, delete, etc.)
     abstract fun workoutDao(): WorkoutDao
 
     companion object {
-        @Volatile
-        private var INSTANCE: WorkoutDatabase? = null
 
+        private var instance: WorkoutDatabase? = null
+
+        // create database only once
         fun getDatabase(context: Context): WorkoutDatabase {
-            return INSTANCE ?: synchronized(this) {
-                val instance = Room.databaseBuilder(
+
+            if (instance == null) {
+                instance = Room.databaseBuilder(
                     context.applicationContext,
                     WorkoutDatabase::class.java,
-                    "fitness_tracker_database"
+                    "workout_db"
                 ).build()
-                INSTANCE = instance
-                instance
             }
+
+            return instance!!
         }
     }
 }
