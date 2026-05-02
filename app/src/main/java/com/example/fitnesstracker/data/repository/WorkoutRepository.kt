@@ -4,6 +4,8 @@ import com.example.fitnesstracker.data.local.WorkoutDao
 import com.example.fitnesstracker.data.local.WorkoutEntity
 import kotlinx.coroutines.flow.Flow
 
+// Repository separates the ViewModel from the database code.
+// The UI talks to the ViewModel, the ViewModel talks to this repository, and this repository talks to Room.
 class WorkoutRepository(private val workoutDao: WorkoutDao) {
     val workouts: Flow<List<WorkoutEntity>> = workoutDao.getAllWorkouts()
 
